@@ -32,15 +32,29 @@ connection.connect(function(err) {
     if (err) throw err;
 
     console.log("connected as id" + connection.threadId);
-    startProgram();
+    showTable();
+    // startProgram();
 })
 
 
 //a function that uses the console.table npm package to all us to display the
 //database information to the user in the command prompt
-function showtable () {
-    console.table()
+function showTable () {
+    // console.table()
+    // console.log("It works Europia!");
+    var query = connection.query(
+        ("SELECT * FROM employee", function(err, res) {
+            if (err) throw err;
+
+            //shows our database in a table in the console
+            console.table(res);
+        }
+    ))
+    
+
+
 }
+
 
 //A function that starts the inquirer prompt
 function startProgram() {
