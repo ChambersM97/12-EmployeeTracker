@@ -8,7 +8,7 @@ var inquirer = require("inquirer")
 //lets us you the npm package console.table
 var cTable = require('console.table');
 
-
+//creates connection to MySQL
 var connection = mysql.createConnection({
     host: "localhost",
   
@@ -22,3 +22,21 @@ var connection = mysql.createConnection({
     password: "hu8b)HF(pyHP&TZ#vprONptaG7oHd9",
     database: "employee_db"
   });
+
+
+
+//A function that starts the inquirer prompt
+
+
+
+
+
+
+
+
+//throws error if we can not get connected to port
+connection.connect(function(err) {
+    if (err) throw err;
+    console.log("connected as id" + connection.threadId);
+    connection.end();
+})

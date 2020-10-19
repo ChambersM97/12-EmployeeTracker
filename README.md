@@ -1,6 +1,6 @@
 <h1 align="center">Welcome to 12-EmployeeTracker 👋</h1>
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-1-blue.svg?cacheSeconds=2592000" />
+  <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
 </p>
 
 > I was tasked with building an inline client application that helps non developers interact with information stored in a database. More specifically, it is used to manage a company's employee's information using node, inquirer, and MySQL.
