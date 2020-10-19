@@ -25,18 +25,32 @@ var connection = mysql.createConnection({
 
 
 
-//A function that starts the inquirer prompt
 
-
-
-
-
-
-
-
-//throws error if we can not get connected to port
+//attempts to connect us to our established PORT
 connection.connect(function(err) {
+    //throws error if we can not get connected to port
     if (err) throw err;
+
     console.log("connected as id" + connection.threadId);
-    connection.end();
+    startProgram();
 })
+
+
+//a function that uses the console.table npm package to all us to display the
+//database information to the user in the command prompt
+function showtable () {
+    console.table()
+}
+
+//A function that starts the inquirer prompt
+function startProgram() {
+    console.log("Starting application")
+
+}
+
+
+
+
+
+
+
