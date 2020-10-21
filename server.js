@@ -33,7 +33,7 @@ connection.connect(function(err) {
 
     console.log("connected as id" + connection.threadId);
     showTable();
-    // startProgram();
+    startProgram();
 })
 
 
@@ -42,14 +42,14 @@ connection.connect(function(err) {
 function showTable () {
     // console.table()
     // console.log("It works Europia!");
-    var query = connection.query(
-        ("SELECT * FROM employee", function(err, res) {
+    connection.query(
+        "SELECT * FROM employee", function(err, res) {
             if (err) throw err;
 
             //shows our database in a table in the console
             console.table(res);
         }
-    ))
+    )
     
 
 
@@ -59,7 +59,15 @@ function showTable () {
 //A function that starts the inquirer prompt
 function startProgram() {
     console.log("Starting application")
-
+    //inquirer prompt
+    inquirer
+        .prompt([
+            {
+                type: "input",
+                message: "What would you like to Do?"
+          
+            }
+        ]).then
 }
 
 
