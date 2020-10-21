@@ -8,6 +8,7 @@ var inquirer = require("inquirer")
 //lets us you the npm package console.table
 var cTable = require('console.table');
 
+
 //creates connection to MySQL
 var connection = mysql.createConnection({
     host: "localhost",
@@ -26,7 +27,7 @@ var connection = mysql.createConnection({
   //attempts to connect us to our established PORT
 connection.connect(function(err) {
     //throws error if we can not get connected to port
-    if (err) throw err;
+    if (err) {throw err};
 
     // console.log("connected as id" + connection.threadId);
     // showTable();
@@ -43,19 +44,30 @@ function startProgram() {
                 name: "start",
                 type: "list",
                 message: "What would you like to Do?",
-                choices:["View All Employees", "Add an Employee","Exit"]
+                choices:["View All Employees","View All Roles","View All Departments","Add an Employee","Add a Role","Add a Department","Exit"]
             }
         ]).then(function(answer){
             // console.log(answer)
             switch (answer.start) {
             case "View All Employees":
-                showEmployee();
+                // showEmployee();
+                showAll("employee")
+                break;
+            case "View All Roles":
+                showAll("role")
+                break;
+            case "View All Deparments":
+                showAll("department")
                 break;
             case "Add an Employee":
                 addEmployee();
                 break;
-            case "Delete an Employee":
-                // removeEmployee();
+            case "Add a Role":
+  
+                break;
+            case "Add a Department":
+
+                break;
             case "Exit":
                 connection.end();
             }
@@ -64,16 +76,16 @@ function startProgram() {
 
 //a function that uses the console.table npm package to all us to display the
 //database information to the user in the command prompt
-function showEmployee () {
+function showAll (table) {
     // console.table()
     // console.log("It works Europia!");
     connection.query(
-        "SELECT * FROM employee", function(err, res) {
+        "SELECT * FROM " + table, function(err, res) {
             if (err) {throw err}
            
             //shows our database in a table in the console
             console.table(res);
-            startProgram();
+            // startProgram();
         })}
 
 //function that allows us to add a new employee from the command line
@@ -111,7 +123,7 @@ function addEmployee () {
                         manager_id: answer.managerId
                     },
                     function(err) {
-                        if (err) throw err;
+                        if (err) {throw err};
                         console.log("Your auction was created successfully!");
                         startProgram();
                       }
@@ -121,9 +133,5 @@ function addEmployee () {
         })
 
 }
-
-// function removeEmployee () {
-
-// }
 
 
