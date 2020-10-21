@@ -23,23 +23,43 @@ var connection = mysql.createConnection({
     database: "employee_db"
   });
 
-
-
-
-//attempts to connect us to our established PORT
+  //attempts to connect us to our established PORT
 connection.connect(function(err) {
     //throws error if we can not get connected to port
     if (err) throw err;
 
     // console.log("connected as id" + connection.threadId);
-    showTable();
-    // startProgram();
+    // showTable();
+    startProgram();
 })
 
+//A function that starts the inquirer prompt
+function startProgram() {
+    // console.log("Starting application")
+    //inquirer prompt
+    inquirer
+        .prompt([
+            {
+                name: "start",
+                type: "list",
+                message: "What would you like to Do?",
+                choices:["View All Employees", "view employee ","Exit :o"]
+            }
+        ]).then(function(answer){
+            // console.log(answer)
+            switch (answer.start) {
+            case "View All Employees":
+                showEmployee();
+                break;
+            case "Exit":
+                connection.end();
+            }
+        });
+}
 
 //a function that uses the console.table npm package to all us to display the
 //database information to the user in the command prompt
-function showTable () {
+function showEmployee () {
     // console.table()
     // console.log("It works Europia!");
     connection.query(
@@ -49,34 +69,16 @@ function showTable () {
             //shows our database in a table in the console
             console.table(res);
             startProgram();
-        }
-    )
-    
+        })}
 
+//function that allows us to add a new employee from the command line
+function addEmployee () {
 
+    startProgram();
 }
 
+// function removeEmployee () {
 
-//A function that starts the inquirer prompt
-function startProgram() {
-    // console.log("Starting application")
-    //inquirer prompt
-    inquirer
-        .prompt([
-            {
-                name: "start-program",
-                type: "list",
-                message: "What would you like to Do?",
-                choices:["bannas"]
-            }
-        ]).then(function(answer){
-            console.log(answer)
-        });
-}
-
-
-
-
-
+// }
 
 
