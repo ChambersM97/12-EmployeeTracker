@@ -31,9 +31,9 @@ connection.connect(function(err) {
     //throws error if we can not get connected to port
     if (err) throw err;
 
-    console.log("connected as id" + connection.threadId);
+    // console.log("connected as id" + connection.threadId);
     showTable();
-    startProgram();
+    // startProgram();
 })
 
 
@@ -44,10 +44,11 @@ function showTable () {
     // console.log("It works Europia!");
     connection.query(
         "SELECT * FROM employee", function(err, res) {
-            if (err) throw err;
-
+            if (err) {throw err}
+           
             //shows our database in a table in the console
             console.table(res);
+            startProgram();
         }
     )
     
@@ -58,16 +59,19 @@ function showTable () {
 
 //A function that starts the inquirer prompt
 function startProgram() {
-    console.log("Starting application")
+    // console.log("Starting application")
     //inquirer prompt
     inquirer
         .prompt([
             {
-                type: "input",
-                message: "What would you like to Do?"
-          
+                name: "start-program",
+                type: "list",
+                message: "What would you like to Do?",
+                choices:["bannas"]
             }
-        ]).then
+        ]).then(function(answer){
+            console.log(answer)
+        });
 }
 
 
