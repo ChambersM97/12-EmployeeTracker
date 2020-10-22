@@ -54,19 +54,22 @@ function startProgram() {
                 showAll("employee")
                 break;
             case "View All Roles":
-                showAll("role")
+                showAll("roles")
                 break;
-            case "View All Deparments":
+            case "View All Departments":
                 showAll("department")
                 break;
             case "Add an Employee":
                 addEmployee();
                 break;
             case "Add a Role":
-  
+                addRole();
                 break;
             case "Add a Department":
-
+                addDepartment();
+                break;
+            case "Update a Role":
+                // updateRole();
                 break;
             case "Exit":
                 connection.end();
@@ -85,7 +88,7 @@ function showAll (table) {
            
             //shows our database in a table in the console
             console.table(res);
-            // startProgram();
+            startProgram();
         })}
 
 //function that allows us to add a new employee from the command line
@@ -124,7 +127,7 @@ function addEmployee () {
                     },
                     function(err) {
                         if (err) {throw err};
-                        console.log("Your auction was created successfully!");
+                        console.log("Your table was created successfully!");
                         startProgram();
                       }
                 
@@ -134,4 +137,68 @@ function addEmployee () {
 
 }
 
+function addRole () {
+    inquirer
+        .prompt([
+            {
+                name:"title",
+                type:"input",
+                message:"What is the title of the role?"
+            },
+            {
+                name:"salary",
+                type:"input",
+                message:"How much do they make?"
+            },
+            {
+                name:"departmentId",
+                type:"input",
+                message:"What is the role's department id?"
+            }
+        ]).then(function(answer) {
+            // console.log(answer)
+            connection.query(
+                    "INSERT INTO roles SET ?",
+                    {
+                        title: answer.title,
+                        salary: answer.salary,
+                        department_id: answer.departmentId
+                    },
+                    function(err) {
+                        if (err) {throw err};
+                        console.log("Your table was created sucessfully ")
+                        startProgram();
+                    }
+            )
 
+        })
+
+}
+
+function addDepartment () {
+    inquirer
+        .prompt([
+            {
+                name:"name",
+                type:"input",
+                message:"What is the name of the department?"
+            },
+        ]).then(function(answer) {
+            // console.log(answer)
+            connection.query(
+                    "INSERT INTO department SET ?",
+                    {
+                        name: answer.name
+                    },
+                    function(err) {
+                        if (err) {throw err};
+                        console.log("Your table was created sucessfully ")
+                        startProgram();
+                    }
+            )
+
+        })
+
+}
+
+// function updateRole ();
