@@ -5,6 +5,11 @@
 
 > I was tasked with building an inline client application that helps non developers interact with information stored in a database. More specifically, it is used to manage a company's employee's information using node, inquirer, and MySQL.
 
+
+![note-taker](noteTakerGif.gif)
+
+
+
 ## Install
 
 ```sh

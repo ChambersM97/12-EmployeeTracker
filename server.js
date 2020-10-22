@@ -7,6 +7,7 @@ var inquirer = require("inquirer")
 
 //lets us you the npm package console.table
 var cTable = require('console.table');
+const { start } = require("repl");
 
 
 //creates connection to MySQL
@@ -44,7 +45,7 @@ function startProgram() {
                 name: "start",
                 type: "list",
                 message: "What would you like to Do?",
-                choices:["View All Employees","View All Roles","View All Departments","Add an Employee","Add a Role","Add a Department","Exit"]
+                choices:["View All Employees","View All Roles","View All Departments","Add an Employee","Add a Role","Add a Department","Update a Role","Exit"]
             }
         ]).then(function(answer){
             // console.log(answer)
@@ -69,7 +70,7 @@ function startProgram() {
                 addDepartment();
                 break;
             case "Update a Role":
-                // updateRole();
+                updateRole();
                 break;
             case "Exit":
                 connection.end();
@@ -138,6 +139,7 @@ function addEmployee () {
 }
 
 function addRole () {
+
     inquirer
         .prompt([
             {
@@ -192,7 +194,7 @@ function addDepartment () {
                     },
                     function(err) {
                         if (err) {throw err};
-                        console.log("Your table was created sucessfully ")
+                        console.log("Your table was created sucessfully")
                         startProgram();
                     }
             )
@@ -201,4 +203,29 @@ function addDepartment () {
 
 }
 
-// function updateRole ();
+//
+function updateRole () {
+    
+    inquirer.prompt([
+        {   
+            name:"id",
+            type:"input",
+            message: "By using their id, select which employee you would like to update."
+        },
+        {
+            name:"role_id",
+            type:"input",
+            message:"What would you like their new role ID to be?"
+        }
+        ]).then(function(answer) {
+            connection.query(
+                "UPDATE employee SET role_id = ? WHERE id = ?",[answer.role_id, answer.id],
+                function (err) {
+                if (err) {throw err};
+                console.log("Your role was updated sucessfully")
+                startProgram();
+            })
+            
+        })
+
+};
